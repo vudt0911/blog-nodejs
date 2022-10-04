@@ -9,6 +9,9 @@ const port = 3000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 // image
 app.use(express.static(path.join(__dirname, '\\public'))); 
 // HTTP logger
@@ -25,6 +28,15 @@ app.get('/', (req, res) => {
 
 app.get('/new', (req, res) => {
   res.render('news');
+})
+
+app.get('/search', (req, res) => {
+  res.render('search');
+})
+
+app.post('/new', (req, res) => {
+  res.send(req.body.keyword);
+  // res.render('news');
 })
 
 app.listen(port, () => {
